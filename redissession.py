@@ -4,7 +4,7 @@ from uuid import uuid4
 from redis import Redis
 from werkzeug.datastructures import CallbackDict
 from flask.sessions import SessionInterface, SessionMixin
-
+import os
 
 class RedisSession(CallbackDict, SessionMixin):
 
@@ -23,7 +23,7 @@ class RedisSessionInterface(SessionInterface):
 
     def __init__(self, redis=None, prefix='session:'):
         if redis is None:
-            redis = Redis(host="CURSO_DOCKER")
+            redis = Redis(host=os.environ["REDIS_SERVER"])
         self.redis = redis
         self.prefix = prefix
 
